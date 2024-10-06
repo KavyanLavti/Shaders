@@ -19,13 +19,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     uv = fract(uv);
     uv=uv*2.;
     uv=uv-1.;
-    for(int i=0; i<8; i++)
+    for(int i=0; i<4; i++)
     {
-        float d = sdBox(uv,vec2(0.5,0.5));
-        vec3 col = vec3(palette(length(uv0)+iTime));
-        d=sin(d*8.+iTime)/8.;
+        float d = sdBox(uv,vec2(0.5,0.5))*exp(-length(uv0));
+        vec3 col = vec3(palette(length(uv0)+iTime +float(i)*0.02));
+        d=sin(d*10.+iTime*0.5)/10.;
         d=abs(d);
-        d=0.01/d;
+        d=pow(0.01/d,1.1);
         col *=d;
         finalcol += col;
     }
